@@ -249,7 +249,7 @@
 
 - (FBBeautyView *)beautyView{
     if (!_beautyView) {
-        _beautyView = [[FBBeautyView alloc] initWithFrame:CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(326))];
+        _beautyView = [[FBBeautyView alloc] initWithFrame:CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(236)+kSafeAreaBottom)];
     }
     return _beautyView;
 }
@@ -277,7 +277,7 @@
 
 - (FBFilterView *)filterView{
     if (!_filterView) {
-        _filterView = [[FBFilterView alloc] initWithFrame:CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(326))];
+        _filterView = [[FBFilterView alloc] initWithFrame:CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(236)+kSafeAreaBottom)];
     }
     return _filterView;
 }
@@ -375,7 +375,7 @@
         self.optionalView.frame = CGRectMake(0, FBScreenHeight, FBScreenWidth, FBHeight(170));
     }completion:nil];
     [UIView animateWithDuration:0.3 animations:^{
-        self.beautyView.frame = CGRectMake(0, FBScreenHeight - FBHeight(326), FBScreenWidth, FBHeight(326));
+        self.beautyView.frame = CGRectMake(0, FBScreenHeight - (FBHeight(236)+kSafeAreaBottom), FBScreenWidth, FBHeight(236)+kSafeAreaBottom);
     }completion:^(BOOL finished) {
         self.showStatus = ShowBeauty;
         [self cameraButtonShow:self.showStatus];
@@ -481,11 +481,11 @@
        
     }];
     [UIView animateWithDuration:0.3 animations:^{
-        self.filterView.frame = CGRectMake(0, FBScreenHeight - FBHeight(326), FBScreenWidth, FBHeight(326));
+        self.filterView.frame = CGRectMake(0, FBScreenHeight - (FBHeight(236)+kSafeAreaBottom), FBScreenWidth, FBHeight(236)+kSafeAreaBottom);
     }completion:^(BOOL finished) {
         self.showStatus = ShowFilter;
         [self cameraButtonShow:self.showStatus];
-        self.exitTapView.frame = CGRectMake(0, 0, FBScreenWidth, FBScreenHeight - FBHeight(326));
+        self.exitTapView.frame = CGRectMake(0, 0, FBScreenWidth, FBScreenHeight - (FBHeight(236)+kSafeAreaBottom));
         self.exitEnable = true;
     }];
     
@@ -635,7 +635,7 @@
             case ShowBeauty:
             {
                 [UIView animateWithDuration:0.3 animations:^{
-                    self.beautyView.frame = CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(326));
+                    self.beautyView.frame = CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(236)+kSafeAreaBottom);
                 }completion:^(BOOL finished) {
                     [self.enterBeautyBtn setHidden: NO];
 //                    [self.defaultButton setHidden:NO];
@@ -672,7 +672,7 @@
             case ShowFilter:
             {
                 [UIView animateWithDuration:0.3 animations:^{
-                    self.filterView.frame = CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(326));
+                    self.filterView.frame = CGRectMake(0,FBScreenHeight, FBScreenWidth, FBHeight(236)+kSafeAreaBottom);
                 }completion:nil];
             }
                 break;

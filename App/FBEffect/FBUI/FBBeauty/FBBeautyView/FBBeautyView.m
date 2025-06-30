@@ -122,7 +122,7 @@
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
 //            make.height.mas_equalTo(FBHeight(258));
-            make.height.mas_equalTo(FBHeight(270));
+            make.height.mas_equalTo(FBHeight(236)+kSafeAreaBottom);
         }];
 
         // 将sliderRelatedView、menuView和effectView添加到containerView中
@@ -156,7 +156,8 @@
 
         
         [self.menuView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.effectView.mas_bottom).offset(FBHeight(15));
+//            make.top.equalTo(self.effectView.mas_bottom).offset(FBHeight(15));
+            make.bottom.equalTo(self.containerView).offset(-kSafeAreaBottom);
             make.left.right.equalTo(self.containerView);
             make.height.mas_equalTo(FBHeight(45));
         }];
