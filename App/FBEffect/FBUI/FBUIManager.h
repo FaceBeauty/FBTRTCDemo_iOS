@@ -2,6 +2,8 @@
 //  FBUIManager.h
 //  FaceBeautyDemo
 //
+//  Created by Texeljoy Tech on 2022/7/18.
+//
 
 #import <UIKit/UIKit.h>
 #import "FBDefaultButton.h"
@@ -19,7 +21,8 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
     ShowMakeup      = 7,
     ShowHair        = 8,
     ShowBody        = 9,
-    ShowFBFun        = 10,
+    ShowFBFun       = 10,
+    ShowOnlyMenu    = 11,
 };
 
 @protocol FBUIManagerDelegate <NSObject>
@@ -43,7 +46,7 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
 /**
  * 显示或隐藏外部拍照按钮
  */
-- (void)didCameraCaptureButtonShow:(BOOL)show;
+- (void)didCameraCaptureButtonShow:(ShowStatus)status;
 
 @end
 
@@ -62,7 +65,8 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
 @property (nonatomic, strong) CustomWindow *superWindow;
 
 @property (nonatomic, strong) FBDefaultButton *defaultButton;
-@property (nonatomic, strong) UIButton *enterBeautyBtn;
+@property(nonatomic,strong)UIButton *enterBeautyBtn;
+
 // 是否启用退出手势
 @property (nonatomic, assign) bool exitEnable;
 
@@ -74,37 +78,46 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
 /**
  *   直接弹出AR道具页面
  */
-//- (void)showARItemView;
+- (void)showARItemView;
 
 /**
  *   直接弹出人像抠图页面
  */
-//- (void)showMattingView;
+- (void)showMattingView;
 
 /**
  *   直接弹出手势识别
  */
-//- (void)showGestureView;
+- (void)showGestureView;
 
 /**
  *   弹出滤镜
  */
 - (void)showFilterView;
 
+- (void)showFilterViewEffect;
+
+- (void)showFilterViewFunny;
+
 /**
  *   弹出美妆
  */
-//- (void)showMakeupView;
+- (void)showMakeupView;
 
 /**
  *   弹出美发
  */
-//- (void)showHairView;
+- (void)showHairView;
+
+/**
+ *   弹出轻彩妆
+ */
+- (void)showLightMakeupView;
 
 /**
  *   弹出美体
  */
-//- (void)showBodyView;
+- (void)showBodyView;
 
 /**
  *   弹出功能页面
@@ -152,5 +165,10 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
  * 释放UI资源
  */
 - (void)destroy;
+
+/**
+ * 释放不分UI资源
+ */
+- (void)destroyEffect;
 
 @end

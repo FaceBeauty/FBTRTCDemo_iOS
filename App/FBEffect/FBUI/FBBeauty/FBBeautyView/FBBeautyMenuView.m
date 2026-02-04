@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) NSArray *listArr;
 
+
+
 @end
 
 static NSString *const FBBeautyMenuViewCellId = @"FBBeautyMenuViewCellId";
@@ -74,9 +76,6 @@ static NSString *const FBBeautyMenuViewCellId = @"FBBeautyMenuViewCellId";
     return self.listArr.count;
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    return CGSizeMake(FBWidth(140) ,FBHeight(45));
-//}
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat totalWidth = collectionView.bounds.size.width;
     CGFloat spacing = 0;
@@ -84,7 +83,7 @@ static NSString *const FBBeautyMenuViewCellId = @"FBBeautyMenuViewCellId";
     
     
     CGFloat itemWidth = (totalWidth - ((itemCount + 1) * spacing)) / itemCount;
-    return CGSizeMake(itemWidth, FBHeight(45));
+    return CGSizeMake(itemWidth, kMenuViewHeight);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -92,7 +91,13 @@ static NSString *const FBBeautyMenuViewCellId = @"FBBeautyMenuViewCellId";
     NSDictionary *dic = self.listArr[indexPath.row];
     FBBeautyMenuViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FBBeautyMenuViewCellId forIndexPath:indexPath];
     if (self.selectedIndexPath.row == indexPath.row) {
-        [cell setTitle:dic[@"name"] textColor:MAIN_COLOR];
+        if(self.effectHide){
+            [cell setTitle:dic[@"name"] textColor:[UIColor whiteColor]];
+        }else{
+            [cell setTitle:dic[@"name"] textColor:MAIN_COLOR];
+        }
+        
+        
     }else{
         [cell setTitle:dic[@"name"] textColor:self.isThemeWhite ? [UIColor blackColor] : FBColors(255, 1.0)];
     }
@@ -101,18 +106,36 @@ static NSString *const FBBeautyMenuViewCellId = @"FBBeautyMenuViewCellId";
     
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.selectedIndexPath.row == indexPath.row) return;
-    
-    NSDictionary *dic = self.listArr[indexPath.row];
-    if (self.onClickBlock) {
-        self.onClickBlock(dic[@"classify"]);
-    }
-    if (!self.disabled) {
-        self.selectedIndexPath = indexPath;
-        [collectionView reloadData];
-    }
+-(void)setEffectHide:(_Bool)effectHide{
+    _effectHide = effectHide;
+    [self.menuCollectionView reloadData];
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dic = self.listArr[indexPath.row];
+    if (self.selectedIndexPath.row == indexPath.row) {
+        // 隐藏和不隐藏的状态切换
+        self.effectHide = !self.effectHide;
+        
+        if (self.onClickBlock) {
+            self.onClickBlock(dic[@"classify"],self.effectHide);
+        }
+      
+    }else{
+        self.effectHide = NO;
+        if (self.onClickBlock) {
+            self.onClickBlock(dic[@"classify"], self.effectHide);
+        }
+        if (!self.disabled) {
+            self.selectedIndexPath = indexPath;
+            [collectionView reloadData];
+        }
+    }
+    
+   
+}
+ 
+
 
 #pragma mark - 主题色切换
 - (void)setIsThemeWhite:(BOOL)isThemeWhite {

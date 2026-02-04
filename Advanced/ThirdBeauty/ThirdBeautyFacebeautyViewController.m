@@ -22,6 +22,7 @@
 //todo --- facebeauty start ---
 #import "FBUIManager.h"
 #import <FaceBeauty/FaceBeautyInterface.h>
+#import <FaceBeauty/FaceBeauty.h>
 bool is_Mirror = true;
 //todo --- facebeauty end ---
 
@@ -90,6 +91,24 @@ static const NSInteger RemoteUserMaxNum = 6;
     //todo --- facebeauty end ---
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [[FaceBeauty shareInstance] loadAIProcessor:AINeonFace];
+    [[FaceBeauty shareInstance] loadAIProcessor:AINeonHair];
+    [[FaceBeauty shareInstance] loadAIProcessor:AINeonHand];
+    [[FaceBeauty shareInstance] loadAIProcessor:AINeonPose];
+    [[FaceBeauty shareInstance] loadAIProcessor:AINeonMatting];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [[FaceBeauty shareInstance] removeAIProcessor:AINeonFace];
+    [[FaceBeauty shareInstance] removeAIProcessor:AINeonHair];
+    [[FaceBeauty shareInstance] removeAIProcessor:AINeonHand];
+    [[FaceBeauty shareInstance] removeAIProcessor:AINeonPose];
+    [[FaceBeauty shareInstance] removeAIProcessor:AINeonMatting];
+    
+}
 - (void)setupDefaultUIConfig {
     
     self.roomIdTextField.text = [NSString generateRandomRoomNumber];
