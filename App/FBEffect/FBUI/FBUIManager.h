@@ -9,6 +9,7 @@
 #import "FBDefaultButton.h"
 #import "FBUIConfig.h"
 #import "CustomWindow.h"
+#import "FBMattingView.h"
 
 typedef NS_ENUM(NSInteger, ShowStatus) {
     ShowOptional    = 0,
@@ -65,7 +66,6 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
 @property (nonatomic, strong) CustomWindow *superWindow;
 
 @property (nonatomic, strong) FBDefaultButton *defaultButton;
-@property(nonatomic,strong)UIButton *enterBeautyBtn;
 
 // 是否启用退出手势
 @property (nonatomic, assign) bool exitEnable;
@@ -78,12 +78,13 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
 /**
  *   直接弹出AR道具页面
  */
-- (void)showARItemView;
+- (void)showARItemView:(FBARItemTypes)type;
 
 /**
  *   直接弹出人像抠图页面
+ *   @param type 类型：人像分割或绿幕抠图
  */
-- (void)showMattingView;
+- (void)showMattingView:(FBMattingType)type;
 
 /**
  *   直接弹出手势识别

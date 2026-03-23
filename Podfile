@@ -7,7 +7,7 @@ target 'TRTC-API-Example-OC' do
 
   # Pods for TRTC-API-Example-OC
   pod 'TXLiteAVSDK_TRTC'
-  pod 'FaceBeauty','4.3.0'
+  pod 'FaceBeauty','5.0.0'
 end
 
 target 'TXReplayKit_Screen' do

@@ -86,7 +86,8 @@ static const NSInteger RemoteUserMaxNum = 6;
     
     //todo --- facebeauty start ---
     [self.trtcCloud setLocalVideoProcessDelegete:self pixelFormat:TRTCVideoPixelFormat_Texture_2D bufferType:TRTCVideoBufferType_Texture];
-    [self.view addSubview:[FBUIManager shareManager].enterBeautyBtn];
+//    [self.view addSubview:[FBUIManager shareManager].defaultButton];
+    [[FBUIManager shareManager] showBeautyView];
     
     //todo --- facebeauty end ---
 }
